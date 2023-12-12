@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    owner: Vlad
+    env  : Prod
+
+spec:
+  containers:
+  - name   : telegrambot
+    image  : shpilevoy/telegram_bot:v01
+    command: ["sh", "-c", "cd /app/Bot2/ && python3 Main.py"]
