@@ -1,0 +1,6 @@
+apiVersion: v2
+name: App-HelmChart
+description: My helm chart for kubernetes
+type: application
+version: 3.13.1
+appVersion: "1.2.3"
