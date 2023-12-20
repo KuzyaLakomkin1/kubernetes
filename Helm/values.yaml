@@ -1,0 +1,4 @@
+containers:
+  image: shpilevoy/telegram_bot:v01
+
+replicas: 2 
