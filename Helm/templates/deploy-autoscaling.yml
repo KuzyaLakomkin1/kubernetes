@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegrambot-deployment
+  labels:
+    app : telegrambot-application
+
+# Указываем какими подами(Labels) будет управлять деплой
+spec:
+  replicas: {{.Values.replicas}}
+  selector:
+    matchLabels:
+      owner: vlad
+
+# Создаём под
+  template:
+    metadata:
+      labels:
+        owner: vlad
+
+    spec:
+      containers:
+        - name: telegrambot
+          image: {{.Values.containers.image}}
+          command: ["sh", "-c", "cd /app/Bot2/ && python3 Main.py"]
+
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: telegrambot-deployment
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageUtilization: 80
