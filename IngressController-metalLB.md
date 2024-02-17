@@ -1,3 +1,20 @@
+# Install helm
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# -------------------------------------------------------------------------------------------------
+
+
+# Install nginx ingress controller
+
+kubectl create ns ingress-nginx    # Create namespace
+helm -n ingress-nginx install ingress-nginx oci://registry-1.docker.io/bitnamicharts/nginx-ingress-controller
+
+
+# -------------------------------------------------------------------------------------------------
+
 # Edit kube-proxy config 
 
 kubectl edit configmap -n kube-system kube-proxy
